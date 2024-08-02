@@ -50,7 +50,7 @@
                                     <li>
                                         <!-- header-top-btn -->
                                         <div class="header-top-btn">
-                                            <a href="add-listing.html">Add Property</a>
+                                            <a  [routerLink]="['../usermaster/addproperty']">Add Property</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -101,14 +101,14 @@
                                         </li>
                                         <li class="menu-icon"><a>About</a>
                                             <ul>
-                                                <li><a [routerLink]="['../usermaster/about']">About</a></li>
+                                                <li><a [routerLink]="['./about']">About</a></li>
                                                 <li><a href="service.html">Services</a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu-icon"><a href="shop.html">Property</a>
+                                        <li class="menu-icon"><a>Property</a>
                                             <ul>
-                                                <li><a href="shop-right-sidebar.html">Property right sidebar</a></li>
-                                                <li><a [routerLink]="['../usermaster/propertydetails']">Property details </a></li>
+                                                <li><a [routerLink]="['./propertydetails']">Property details </a></li>
+                                                <li><a [routerLink]="['./propertylist']">Property right sidebar</a></li>
                                                 <li><a href="#">Other Pages <span class="float-end">>></span></a>
                                                     <ul>
                                                         <li><a href="cart.html">Cart</a></li>
@@ -167,7 +167,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a [routerLink]="['../usermaster/contact']">Contact</a></li>
+                                        <li><a [routerLink]="['./contact']">Contact</a></li>
                                     </ul>
                                 </div>
                             </nav>

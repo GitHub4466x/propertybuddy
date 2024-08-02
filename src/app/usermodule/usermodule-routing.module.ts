@@ -5,6 +5,8 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { AboutComponent } from './about/about.component';
 import { PropertydetailsComponent } from './propertydetails/propertydetails.component';
 import { ContactComponent } from './contact/contact.component';
+import { PropertylistComponent } from './propertylist/propertylist.component';
+import { AddpropertyComponent } from './addproperty/addproperty.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
     path:'usermaster',
     component:UsermasterComponent,
     children:[
+      {
+        path:'addproperty',
+        component:AddpropertyComponent
+      },
+      {
+        path:'propertylist',
+        component:PropertylistComponent
+      },
       {
         path:'propertydetails',
         component:PropertydetailsComponent

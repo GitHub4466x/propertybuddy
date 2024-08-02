@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -11,7 +11,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './usermaster.component.html',
   styleUrl: './usermaster.component.css'
 })
-export class UsermasterComponent {
+export class UsermasterComponent implements OnDestroy {
+
 
   private stylesheets: string[] = [
     'css/font-icons.css',
@@ -21,8 +22,9 @@ export class UsermasterComponent {
   ];
 
   private scripts: string[] = [
-    '/js/plugins.js',
-    '/js/main.js'
+    // 'js/jquery.min.js', // Ensure jQuery is loaded first
+    'js/plugins.js',
+    'js/main.js'
   ];
 
   private addedScripts: HTMLScriptElement[] = [];
@@ -30,19 +32,19 @@ export class UsermasterComponent {
 
   constructor() {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (typeof document !== 'undefined') {
       this.addStyles(this.stylesheets);
-      this.addScripts(this.scripts);
+      this.loadScriptsSequentially(this.scripts);
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.removeStyles();
     this.removeScripts();
   }
 
-  private addStyles(styles: string[]) {
+  private addStyles(styles: string[]): void {
     styles.forEach(href => {
       const linkElement = this.addStyle(href);
       if (linkElement) {
@@ -56,7 +58,6 @@ export class UsermasterComponent {
     if (document.querySelector(`link[href="${href}"]`)) {
       return null;
     }
-
     const linkElement = document.createElement('link');
     linkElement.rel = 'stylesheet';
     linkElement.href = href;
@@ -64,7 +65,7 @@ export class UsermasterComponent {
     return linkElement;
   }
 
-  private removeStyles() {
+  private removeStyles(): void {
     this.addedStyles.forEach(link => {
       if (link.parentNode) {
         link.parentNode.removeChild(link);
@@ -73,30 +74,29 @@ export class UsermasterComponent {
     this.addedStyles = [];
   }
 
-  private addScripts(scripts: string[]) {
-    scripts.forEach(src => {
-      const scriptElement = this.addScript(src);
-      if (scriptElement) {
-        this.addedScripts.push(scriptElement);
+  private loadScriptsSequentially(scripts: string[]): void {
+    scripts.reduce((promise, src) => {
+      return promise.then(() => this.loadScript(src));
+    }, Promise.resolve());
+  }
+
+  private loadScript(src: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
       }
+
+      const scriptElement = document.createElement('script');
+      scriptElement.src = src;
+      scriptElement.onload = () => resolve();
+      scriptElement.onerror = () => reject(new Error(`Failed to load script ${src}`));
+      document.body.appendChild(scriptElement);
+      this.addedScripts.push(scriptElement);
     });
   }
 
-  private addScript(src: string): HTMLScriptElement | null {
-    // Check if the script is already added
-    if (document.querySelector(`script[src="${src}"]`)) {
-      return null;
-    }
-
-    const scriptElement = document.createElement('script');
-    scriptElement.src = src;
-    // scriptElement.async = true; // Optional: Load asynchronously
-    // scriptElement.defer = true; // Optional: Defer execution
-    document.body.appendChild(scriptElement);
-    return scriptElement;
-  }
-
-  private removeScripts() {
+  private removeScripts(): void {
     this.addedScripts.forEach(script => {
       if (script.parentNode) {
         script.parentNode.removeChild(script);
