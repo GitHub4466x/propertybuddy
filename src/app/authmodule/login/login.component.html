@@ -250,7 +250,9 @@
                         <input type="text" placeholder="Email*">
                         <input type="password" placeholder="Password*">
                         <div class="btn-wrapper mt-0">
-                            <button class="theme-btn-1 btn btn-block">SIGN IN</button>
+                            <a [routerLink]="['/user']">
+                            <button class="theme-btn-1 btn btn-block" >SIGN IN</button>
+                        </a>
                         </div>
                         <div class="go-to-btn mt-20">
                             <a href="#" title="Forgot Password?" data-bs-toggle="modal"

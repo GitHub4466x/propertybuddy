@@ -81,13 +81,9 @@
                            <nav>
                                <div class="ltn__main-menu">
                                    <ul>
-                                       <li class="menu-icon"><a [routerLink]="['']">Home</a>
+                                       <li class="menu-icon"><a [routerLink]="['./']">Home</a>
                                        </li>
-                                       <li class="menu-icon"><a >About</a>
-                                           <ul>
-                                               <li><a [routerLink]="['../usermaster/about']">About</a></li>
-                                               
-                                           </ul>
+                                       <li class="menu-icon" [routerLink]="['../usermaster/about']"><a >About</a>
                                        </li>
                                        <li class="menu-icon"><a>Property</a>
                                            <ul>
@@ -97,13 +93,14 @@
                                        </li>
                                       
                                        <li><a [routerLink]="['../usermaster/contact']">Contact</a></li>
-                                       <li class="special-link">
-                                           <a  [routerLink]="['../usermaster/addproperty']">Add Property</a>
-                                       </li>
                                        <li class="premium"><a class="btn-premium" (click)="showOverlay()">
                                         <i class="fas fa-crown"></i>
                                         Premium
                                     </a></li>
+                                       <li class="special-link">
+                                           <a  [routerLink]="['../usermaster/addproperty']">Add Property</a>
+                                       </li>
+                                      
                                    </ul>
                                </div>
                            </nav>

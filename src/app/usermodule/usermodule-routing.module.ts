@@ -13,7 +13,7 @@ import { PremiumComponent } from './premium/premium.component';
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'usermaster/about',
+    redirectTo:'userhome',
     pathMatch:'full'
   },
   {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -11,14 +11,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './master.component.html',
   styleUrl: './master.component.css'
 })
-export class MasterComponent {
+export class MasterComponent  implements OnInit{
 
   private stylesheets: string[] = [
-      'css/style.css',
     'css/font-icons.css',
     'css/plugins.css',
-    'css/responsive.css',
-  
+    'css/style.css',
+    'css/responsive.css'
   ];
 
   private scripts: string[] = [
@@ -36,8 +35,7 @@ export class MasterComponent {
     if (typeof document !== 'undefined') {
       this.addStyles(this.stylesheets);
       this.loadScriptsSequentially(this.scripts);
-    }  
-  
+    }
   }
 
   ngOnDestroy(): void {
@@ -105,6 +103,7 @@ export class MasterComponent {
     });
     this.addedScripts = [];
   }
+  
 
 }
 

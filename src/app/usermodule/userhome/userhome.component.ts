@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PremiumComponent } from "../premium/premium.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-userhome',
   standalone: true,
-  imports: [RouterLink, PremiumComponent],
+  imports: [RouterLink, PremiumComponent,CommonModule],
   templateUrl: './userhome.component.html',
   styleUrls: ['./userhome.component.css'] // Corrected to styleUrls
 })
