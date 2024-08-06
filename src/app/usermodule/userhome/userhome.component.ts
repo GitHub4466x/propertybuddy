@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PremiumComponent } from "../premium/premium.component";
 
 @Component({
   selector: 'app-userhome',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, PremiumComponent],
   templateUrl: './userhome.component.html',
   styleUrls: ['./userhome.component.css'] // Corrected to styleUrls
 })
@@ -99,5 +100,17 @@ export class UserhomeComponent implements OnInit, OnDestroy {
       }
     });
     this.addedScripts = [];
+  }
+  
+  isOverlayVisible : boolean = false;   
+
+  showOverlay(){
+    this.isOverlayVisible=true;
+  }
+
+  hideOverlay(event: Event) {
+    if (event.target === event.currentTarget) {
+      this.isOverlayVisible = false;
+    }
   }
 }

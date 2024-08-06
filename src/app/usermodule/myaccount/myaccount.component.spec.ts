@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsermasterComponent } from './usermaster.component';
+import { MyaccountComponent } from './myaccount.component';
 
-describe('UsermasterComponent', () => {
-  let component: UsermasterComponent;
-  let fixture: ComponentFixture<UsermasterComponent>;
+describe('MyaccountComponent', () => {
+  let component: MyaccountComponent;
+  let fixture: ComponentFixture<MyaccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UsermasterComponent]
+      imports: [MyaccountComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UsermasterComponent);
+    fixture = TestBed.createComponent(MyaccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,11 +21,3 @@ describe('UsermasterComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-
-
-
-
-
-//  MAIN JS START
-

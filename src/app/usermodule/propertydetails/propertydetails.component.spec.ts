@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PropertydetailsComponent } from './propertydetails.component';
 
+
+
 describe('PropertydetailsComponent', () => {
   let component: PropertydetailsComponent;
   let fixture: ComponentFixture<PropertydetailsComponent>;
@@ -21,3 +23,5 @@ describe('PropertydetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+

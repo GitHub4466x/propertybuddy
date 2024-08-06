@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 
 @Component({
   selector: 'app-propertydetails',
@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './propertydetails.component.html',
   styleUrl: './propertydetails.component.css'
 })
-export class PropertydetailsComponent {
+export class PropertydetailsComponent implements AfterViewInit {
+
+  ngAfterViewInit(): void {
+    
+  }
 
 }

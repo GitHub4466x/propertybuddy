@@ -7,11 +7,13 @@ import { PropertydetailsComponent } from './propertydetails/propertydetails.comp
 import { ContactComponent } from './contact/contact.component';
 import { PropertylistComponent } from './propertylist/propertylist.component';
 import { AddpropertyComponent } from './addproperty/addproperty.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
+import { PremiumComponent } from './premium/premium.component';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'userhome',
+    redirectTo:'usermaster/about',
     pathMatch:'full'
   },
   {
@@ -37,6 +39,14 @@ const routes: Routes = [
       {
         path:'contact',
         component:ContactComponent
+      },
+      {
+        path:'myaccount',
+        component:MyaccountComponent
+      },
+      {
+        path:'premium',
+        component:PremiumComponent
       }
     ]
   },

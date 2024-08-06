@@ -1,23 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-adminmaster',
   standalone: true,
-  imports: [ RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './adminmaster.component.html',
   styleUrl: './adminmaster.component.css'
 })
-export class AdminmasterComponent {
-  
+export class AdminmasterComponent implements OnInit, OnDestroy {
   private scripts: string[] = [
+    'assets/js/main.js',
     'assets/js/vendors/jquery-3.6.0.min.js',
     'assets/js/vendors/bootstrap.bundle.min.js',
     'assets/js/vendors/select2.min.js',
     'assets/js/vendors/perfect-scrollbar.js',
     'assets/js/vendors/jquery.fullscreen.min.js',
     'assets/js/vendors/chart.js',
-    'assets/js/main.js',
     'assets/js/custom-chart.js'
   ];
 
@@ -46,13 +45,13 @@ export class AdminmasterComponent {
     styles.forEach(href => {
       const linkElement = this.addStyle(href);
       if (linkElement) {
+        linkElement.onerror = () => console.error(`Failed to load stylesheet ${href}`);
         this.addedStyles.push(linkElement);
       }
     });
   }
 
   private addStyle(href: string): HTMLLinkElement | null {
-    // Check if the stylesheet is already added
     if (document.querySelector(`link[href="${href}"]`)) {
       return null;
     }
@@ -74,26 +73,35 @@ export class AdminmasterComponent {
   }
 
   private addScripts(scripts: string[]) {
-    scripts.forEach(src => {
-      const scriptElement = this.addScript(src);
-      if (scriptElement) {
-        this.addedScripts.push(scriptElement);
-      }
+    this.loadScriptsSequentially(scripts).then(() => {
+      console.log("All scripts loaded.");
+      this.initializeScripts();
+    }).catch(error => {
+      console.error("Error loading scripts:", error);
     });
   }
 
-  private addScript(src: string): HTMLScriptElement | null {
-    // Check if the script is already added
-    if (document.querySelector(`script[src="${src}"]`)) {
-      return null;
-    }
+  private loadScriptsSequentially(scripts: string[]): Promise<void> {
+    return scripts.reduce((promise, src) => {
+      return promise.then(() => this.loadScript(src));
+    }, Promise.resolve());
+  }
 
-    const scriptElement = document.createElement('script');
-    scriptElement.src = src;
-    scriptElement.async = true; // Optional: Load asynchronously
-    scriptElement.defer = true; // Optional: Defer execution
-    document.body.appendChild(scriptElement);
-    return scriptElement;
+  private loadScript(src: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
+
+      const scriptElement = document.createElement('script');
+      scriptElement.src = src;
+      scriptElement.async = true;
+      scriptElement.onload = () => resolve();
+      scriptElement.onerror = () => reject(new Error(`Failed to load script ${src}`));
+      document.body.appendChild(scriptElement);
+      this.addedScripts.push(scriptElement);
+    });
   }
 
   private removeScripts() {
@@ -105,4 +113,7 @@ export class AdminmasterComponent {
     this.addedScripts = [];
   }
 
+  private initializeScripts() {
+    console.log("Scripts initialized.");
+  }
 }
